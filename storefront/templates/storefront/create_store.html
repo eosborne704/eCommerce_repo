@@ -1,0 +1,36 @@
+{% block title %}
+    Eli's Store
+    {% if form.instance.pk %}
+        Edit
+    {% else %}
+        Create
+    {% endif %}
+        Write
+{% endblock %}
+{% block content %}
+    <h2>
+        {% if form.instance.pk %}
+            Edit
+        {% else %}
+            Write
+        {% endif %}
+        note
+    </h2>
+    <form method="post"
+        action="{% if form.instance.pk %}{% url 'edit_store_details' pk=form.instance.pk %}{% else %}{% url 'create_store' %}{% endif %} ">
+        {% csrf_token %}
+        <div class="card" style="width: 25rem;">
+            <div class="card-body">
+                <p class="card-text">
+
+                    {{ form.as_p}}
+
+                </p>
+            </div>
+        </div>
+        <button type="submit">
+            Save
+        </button>
+    </form>
+    <a href="{% url 'all_stores' %}">Back to Main Store Page</a>
+{% endblock %}

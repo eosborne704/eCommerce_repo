@@ -1,0 +1,30 @@
+{% block title %}
+    {{store.title}}
+{% endblock %}
+{% block content %}
+    <h2>
+        {% if form.instance.pk %}
+            Edit
+        {% else %}
+            Write
+        {% endif %}
+        note
+    </h2>
+    <form method="post" enctype="multipart/form-data"
+        action="{% if form.instance.pk %}{% url 'edit_product_details' pk=form.instance.pk %}{% else %}{% url 'add_product' store_id=store.pk %}{% endif %}">
+        {% csrf_token %}
+        <div class="card" style="width: 25rem;">
+            <div class="card-body">
+                <p class="card-text">
+
+                    {{ form.as_p}}
+
+                </p>
+            </div>
+        </div>
+        <button type="submit">
+            Save
+        </button>
+    </form>
+    <a href="{% url 'all_products' store_id=store.pk %}">Back to Products Page</a>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% block title %}
+	Edit Review
+{% endblock %}
+{% block content %}
+	<h2>Edit review</h2>
+	<form method="post" enctype="multipart/form-data"
+		action="{% url 'edit_review' pk=form.instance.pk %}">
+		{% csrf_token %}
+		<div class="card" style="width: 25rem;">
+			<div class="card-body">
+				<p class="card-text">
+					{{ form.as_p}}
+				</p>
+			</div>
+		</div>
+		<button type="submit">
+			Save
+		</button>
+	</form>
+	<a href="{% url 'all_reviews' product_id=form.instance.product.pk %}">Back to Reviews</a>
+{% endblock %}

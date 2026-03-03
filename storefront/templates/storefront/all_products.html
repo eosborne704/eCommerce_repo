@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<!-- Add Bootstrap CDN to head -->
+{% load static %}
+{% block head %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'storefront/style.css' %}">
+{% endblock %}
+
+{% block title %}
+    Our Wares {{ page_title }}
+{% endblock %}
+{% block content %}
+    <div class="container mt-4">
+        <h2 class="mb-4">{{ page_title }}</h2>
+        <a class="btn btn-primary mb-3" href="{% url 'add_product' store_id=store.pk %}">Add New Product</a>
+        <div class="row">
+            {% for product in products %}
+                <div class="col-md-4 mb-3">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <a class="card-title h5" href="{% url 'view_product' pk=product.pk %}">{{product.title}}</a>
+                            <p class="card-text">{{ store.content }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <a class="btn btn-secondary mt-3" href="{% url 'view_store' pk=store.pk %}">Back to Store Page</a>
+    </div>
+{% endblock %}

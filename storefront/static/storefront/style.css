@@ -1,0 +1,39 @@
+body {
+    font-family: "Arial", sans-serif;
+}
+
+header {
+    background-color:rgb(0, 0, 0);
+    color:rgb(255, 255, 255);
+    padding: 10px;
+    text-align: center;
+}
+
+main {
+    margin: 20px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+.card {
+  background-color: yellow;
+  border: 2px solid black;
+  margin: 20px;
+}
+
+li {
+    margin-bottom: 20px;
+}
+
+img {
+  height: auto;
+  width: auto;
+}
+footer {
+    background-color:rgb(0, 0, 0);
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
