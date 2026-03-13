@@ -412,19 +412,6 @@ def view_product(request, pk) -> HttpResponse:
     })
 
 
-@login_required
-
-
-@login_required
-def delete_product(request, pk) -> HttpResponseRedirect:
-    """
-    View to delete a product
-    """
-    product: Product = get_object_or_404(Product, pk=pk)
-    store_pk = product.store.pk
-    product.delete()
-    return redirect("view_store", pk=store_pk)
-
 
 def all_reviews(request, product_id) -> HttpResponse:
     """
