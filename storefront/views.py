@@ -14,7 +14,6 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils import timezone
 from django.views.decorators.http import require_POST
-
 from .forms import ProductsForm, ReviewForm, StoreForm
 from .models import Product, Purchase, ResetToken, Review, Store
 
@@ -74,8 +73,8 @@ def forgot_password_view(request) -> HttpResponse:
 
 @login_required
 def edit_product_details(request, pk) -> HttpResponse | HttpResponseRedirect:
-    product: Product = get_object_or_404(Product, pk=pk)
-    store: None = product.store
+    product = get_object_or_404(Product, pk=pk)
+    store = product.store
     # Only allow the owner (vendor) to edit products in their store
     if not (request.user.is_authenticated and store.owner == request.user):
         return HttpResponse("Unauthorized", status=403)
@@ -91,8 +90,8 @@ def edit_product_details(request, pk) -> HttpResponse | HttpResponseRedirect:
 
 @login_required
 def delete_product(request, pk) -> HttpResponse | HttpResponseRedirect:
-    product: Product = get_object_or_404(Product, pk=pk)
-    store: None = product.store
+    product = get_object_or_404(Product, pk=pk)
+    store = product.store
     # Only allow the owner (vendor) to delete products in their store
     if not (request.user.is_authenticated and store.owner == request.user):
         return HttpResponse("Unauthorized", status=403)
@@ -217,7 +216,7 @@ def welcome_view(request) -> HttpResponse:
     """
     Renders the welcome page
     """
-    stores: models.BaseManager[Store] = Store.objects.all()
+    stores = Store.objects.all()
     return render(request, 'welcome.html', {"stores": stores})
 
 
@@ -226,11 +225,11 @@ def all_stores(request) -> HttpResponse:
     Displays all presently-created stores
     """
     is_vendor = False
-    stores: models.BaseManager[Store] = Store.objects.all()
+    stores = Store.objects.all()
     if request.user.is_authenticated:
         is_vendor = request.user.groups.filter(name='Vendor').exists()
         if is_vendor:
-            stores: models.BaseManager[Store] = Store.objects.filter(owner=request.user)
+            stores = Store.objects.filter(owner=request.user)
     context = {
         "stores": stores,
         "store_display": "All Stores",
@@ -312,20 +311,23 @@ def edit_store_details(request, pk) -> HttpResponse | HttpResponseRedirect:
         form = StoreForm(instance=store)
     return render(request, "storefront/create_store.html", {"form": form})
 
-
+    # ...existing code...
 
 def all_products(request, store_id) -> HttpResponse:
     """
     Show all products for a store.
     """
-    store: Store = get_object_or_404(Store, pk=store_id)
-    products: models.BaseManager[Product] = Product.objects.filter(store=store)
+    store = get_object_or_404(Store, pk=store_id)
+    products = Product.objects.filter(store=store)
 
+    is_vendor = False
+    if request.user.is_authenticated:
+        is_vendor = request.user.groups.filter(name='Vendor').exists()
     context = {
         "products": products,
         "store": store,
+        "is_vendor": is_vendor,
     }
-
     return render(request, "storefront/all_products.html", context)
 
 
@@ -381,11 +383,11 @@ def view_product(request, pk) -> HttpResponse:
     """
     Show details for a product.
     """
-    product: Product = get_object_or_404(Product, pk=pk)
-    store: None = product.store
-    reviews: models.BaseManager[Review] = Review.objects.filter(product=product)
+    product = get_object_or_404(Product, pk=pk)
+    store = product.store
+    reviews = Review.objects.filter(product=product)
     verified_reviews = reviews.filter(verified=True)
-    avg_rating: Any | int = verified_reviews.aggregate(models.Avg('rating'))['rating__avg'] or 0
+    avg_rating = verified_reviews.aggregate(models.Avg('rating'))['rating__avg'] or 0
     phrase, color = get_rating_phrase_and_color(avg_rating)
     # Annotate each review with phrase and color
     annotated_reviews = []
@@ -428,8 +430,8 @@ def all_reviews(request, product_id) -> HttpResponse:
     """
     Allows user to view all reviews for a product
     """
-    product: Product = get_object_or_404(Product, pk=product_id)
-    reviews: models.BaseManager[Review] = Review.objects.filter(product=product)
+    product = get_object_or_404(Product, pk=product_id)
+    reviews = Review.objects.filter(product=product)
     context = {
         "reviews": reviews,
         "product": product,
@@ -473,8 +475,8 @@ def edit_review(request, pk) -> HttpResponseRedirect | HttpResponse:
     """
     Allows buyers to edit the content of their review
     """
-    review: Review = get_object_or_404(Review, pk=pk)
-    product: None = review.product
+    review = get_object_or_404(Review, pk=pk)
+    product = review.product
     # Restrict editing to the review's author
     if review.user != request.user:
         return HttpResponse("Unauthorized", status=403)
@@ -496,8 +498,8 @@ def delete_review(request, pk) -> HttpResponseRedirect | HttpResponse:
     """
     Allows buyers to delete their reviews
     """
-    review: Review = get_object_or_404(Review, pk=pk)
-    product: None = review.product
+    review = get_object_or_404(Review, pk=pk)
+    product = review.product
     # Restrict deleting to the review's author
     if review.user != request.user:
         return HttpResponse("Unauthorized", status=403)
