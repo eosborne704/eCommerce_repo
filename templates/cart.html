@@ -9,7 +9,10 @@
             {% endfor %}
         </ul>
         <h4>Total: ${{ total|floatformat:2 }}</h4>
-        <a class="btn btn-danger" href="/cart/empty/">Empty Cart</a>
+        <form action="/cart/empty/" method="POST" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Empty Cart</button>
+        </form>
         <form action="/cart/checkout/" method="POST" style="display:inline;">
             {% csrf_token %}
             <button type="submit" class="btn btn-success">Checkout</button>
@@ -19,6 +22,7 @@
         {% endif %}
     {% else %}
         <p>Your cart is empty.</p>
+        <a class="btn btn-info mt-2" href="/stores/">Return to Store</a>
     {% endif %}
 </div>
 {% endblock %}

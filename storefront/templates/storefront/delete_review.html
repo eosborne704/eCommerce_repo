@@ -8,5 +8,5 @@
 		{% csrf_token %}
 		<button type="submit">Delete</button>
 	</form>
-	<a href="{% url 'all_reviews' product_id=review.product.pk %}">Back to Reviews</a>
+	<a href="{% url 'view_product' pk=review.product.pk %}">Back to Product Page</a>
 {% endblock %}

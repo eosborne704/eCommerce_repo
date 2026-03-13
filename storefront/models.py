@@ -1,6 +1,7 @@
-from django.db import models
-from django.core.validators import MinValueValidator, MaxValueValidator
+
 from django.conf import settings
+from django.core.validators import MaxValueValidator, MinValueValidator
+from django.db import models
 
 class Purchase(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -51,20 +52,14 @@ class Review(models.Model):
     product = models.ForeignKey(
         "Product", on_delete=models.CASCADE, null=True, blank=True
     )
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     verified = models.BooleanField(default=False, help_text="Is this review from a verified buyer?")
 
     def __str__(self):
         return str(self.title)
 
 
-class User(models.Model):
-    """
-    Defining User's behavior
-    """
-    name = models.CharField(max_length=255)
 
-    def __str__(self):
-        return self.name
 
 
 class ResetToken(models.Model):

@@ -1,7 +1,4 @@
-"""
-Creating the form for user
-to write and edit notes
-"""
+
 from django import forms
 from .models import Product, Store, Review
 

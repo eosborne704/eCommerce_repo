@@ -31,4 +31,6 @@ urlpatterns = [
     path('cart/', views.show_user_cart, name='show_user_cart'),
     path('cart/empty/', views.empty_cart, name='empty_cart'),
     path('cart/checkout/', views.checkout_view, name='checkout'),
+    path('forgot-password/', views.forgot_password_view, name='forgot_password'),
+    path('reset-password/<str:token>/', views.reset_password_view, name='reset_password'),
 ]

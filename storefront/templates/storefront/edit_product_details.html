@@ -17,5 +17,5 @@
             Save
         </button>
     </form>
-    <a href="{% url 'all_products' store_id=form.instance.store.pk %}">Back to Products Page</a>
+    <a href="{% url 'view_store' pk=form.instance.store.pk %}">Back to Store Page</a>
 {% endblock %}

@@ -10,15 +10,16 @@
             Add Product
         {% endif %}
     </h2>
+    {% if error %}
+        <p style="color: red; font-weight: bold;">{{ error }}</p>
+    {% endif %}
     <form method="post" enctype="multipart/form-data"
         action="{% if form.instance.pk %}{% url 'edit_product_details' pk=form.instance.pk %}{% else %}{% url 'add_product' store_id=store.pk %}{% endif %}">
         {% csrf_token %}
         <div class="card" style="width: 25rem;">
             <div class="card-body">
                 <p class="card-text">
-
                     {{ form.as_p}}
-
                 </p>
             </div>
         </div>

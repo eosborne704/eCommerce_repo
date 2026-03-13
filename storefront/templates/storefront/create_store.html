@@ -1,12 +1,10 @@
 {% extends 'base.html' %}
 {% block title %}
-    Eli's Store
     {% if form.instance.pk %}
-        Edit
+        Edit Store
     {% else %}
-        Create
+        Create Store
     {% endif %}
-        Write
 {% endblock %}
 {% block content %}
     <h2>
@@ -16,15 +14,16 @@
             Create Store
         {% endif %}
     </h2>
+    {% if error %}
+        <p style="color: red; font-weight: bold;">{{ error }}</p>
+    {% endif %}
     <form method="post"
         action="{% if form.instance.pk %}{% url 'edit_store_details' pk=form.instance.pk %}{% else %}{% url 'create_store' %}{% endif %} ">
         {% csrf_token %}
         <div class="card" style="width: 25rem;">
             <div class="card-body">
                 <p class="card-text">
-
                     {{ form.as_p}}
-
                 </p>
             </div>
         </div>

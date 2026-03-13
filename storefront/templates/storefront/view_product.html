@@ -44,8 +44,16 @@
                                         <div class="card-body">
                                             <a class="card-title h5" href="{% url 'view_review' pk=r.review.pk %}">{{r.review.title}}</a>
                                             <p class="card-text">{{ r.review.content }}</p>
-                                            <p class="card-text">{{ r.review.rating }}/5</p>
+                                            <p class="card-text">{{ r.review.rating|floatformat:1 }}/5</p>
                                             <span style="color: {{ r.color }}; font-weight: bold;">{{ r.phrase }}</span>
+                                            <p class="card-text">
+                                                <span class="badge ms-0" style="font-size: 1rem;">Reviewed by: {{ r.review.user.username }}</span>
+                                                {% if r.review.verified %}
+                                                    <span class="badge ms-2" style="color: #007bff; background-color: transparent; font-size: 1rem;">Verified</span>
+                                                {% else %}
+                                                    <span class="badge ms-2" style="color: #6c757d; background-color: transparent; font-size: 1rem;">Unverified</span>
+                                                {% endif %}
+                                            </p>
                                         </div>
                                     </div>
                                 </li>
@@ -58,6 +66,6 @@
                         {% endif %}
                     </div>
                 {% endif %}
-                <a class="btn btn-secondary" href="{% url 'all_products' store_id=store.pk %}">Back to Products Page</a>
+                <a class="btn btn-secondary" href="{% url 'view_store' pk=store.pk %}">Back to Store Page</a>
     </div>
 {% endblock %}

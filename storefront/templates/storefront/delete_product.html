@@ -3,10 +3,10 @@
     Delete Product
 {% endblock %}
 {% block content %}
-    <h2>Are you sure you want to delete this product?</h2>
+    <h2>Are you sure you want to delete <strong>{{ product.title }}</strong>?</h2>
     <form method="post" action="{% url 'delete_product' pk=product.pk %}">
         {% csrf_token %}
         <button type="submit">Delete</button>
     </form>
-    <a href="{% url 'all_products' store_id=product.store.pk %}">Back to Products Page</a>
+    <a href="{% url 'view_store' pk=product.store.pk %}">Back to Store Page</a>
 {% endblock %}

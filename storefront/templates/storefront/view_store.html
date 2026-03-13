@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block title %}
-    Eli's Store {{ store.title }}
+    {{ store.title }}
 {% endblock %}
 {% block content %}
     <div class="container mt-4">
@@ -19,13 +19,13 @@
                 </div>
                 <div class="d-grid gap-2 mb-4">
                     {% if is_vendor and store.owner == user %}
-                        <a class="btn btn-success" href="{% url 'create_store' %}">Create Store</a>
+                        <!-- Create Store button removed -->
                         <a class="btn btn-warning" href="{% url 'edit_store_details' pk=store.pk %}">Edit Store Details</a>
                         <a class="btn btn-danger" href="{% url 'delete_store' pk=store.pk %}">Delete Store</a>
                         <a class="btn btn-primary" href="{% url 'add_product' store_id=store.pk %}">Add Product</a>
                     {% endif %}
 
-                    <a class="btn btn-secondary" href="{% url 'all_stores' %}">Back to Main Store Page</a>
+                    <a class="btn btn-secondary" href="{% url 'all_stores' %}">Back to All Stores</a>
                 </div>
                 <h4>Products in this Store:</h4>
                 <ul class="list-unstyled">

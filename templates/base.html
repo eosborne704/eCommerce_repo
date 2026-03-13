@@ -8,26 +8,32 @@
 <body>
     <nav>
         <ul style="list-style: none; padding-left: 0; display: flex; gap: 10px;">
-            <li><a class="btn btn-success" href="/stores/">Stores</a></li>
-            {% if user.is_authenticated %}
-                <li><a class="btn btn-warning" href="/logout/">Logout</a></li>
-            {% else %}
+            {% if request.path == '/forgot-password/' %}
                 <li><a class="btn btn-primary" href="/login/">Login</a></li>
-            {% endif %}
-            {% if not user.is_authenticated %}
                 <li><a class="btn btn-secondary" href="/register/">Register</a></li>
-            {% endif %}
-            {% if user.is_authenticated and user.groups.all %}
-                {% for group in user.groups.all %}
-                    {% if group.name == 'Buyer' %}
-                        <li><a class="btn btn-success" href="/cart/">Cart</a></li>
-                    {% endif %}
-                {% endfor %}
+            {% else %}
+                <li><a class="btn btn-success" href="/stores/">Stores</a></li>
+                {% if user.is_authenticated %}
+                    <li><a class="btn btn-warning" href="/logout/">Logout</a></li>
+                {% else %}
+                    <li><a class="btn btn-primary" href="/login/">Login</a></li>
+                {% endif %}
+                {% if not user.is_authenticated %}
+                    <li><a class="btn btn-secondary" href="/register/">Register</a></li>
+                {% endif %}
+                {% if user.is_authenticated and user.groups.all %}
+                    {% for group in user.groups.all %}
+                        {% if group.name == 'Buyer' %}
+                            <li><a class="btn btn-success" href="/cart/">Cart</a></li>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
             {% endif %}
         </ul>
     </nav>
     {% if user.is_authenticated %}
         <div style="margin: 10px 0;">
+            Welcome <span style="font-weight: bold;">{{ user.username }}</span>!<br>
             You are logged in as a:
             {% with groups=user.groups.all %}
                 {% for group in groups %}

@@ -25,10 +25,10 @@
 				</p>
 			</div>
 		</div>
-		{% if not user.is_vendor %}
+		{% if review.user == user %}
 			<a class="btn btn-warning" href="{% url 'edit_review' pk=review.pk %}">Edit Review</a>
 			<a class="btn btn-danger" href="{% url 'delete_review' pk=review.pk %}">Delete Review</a>
 		{% endif %}
-		<a class="btn btn-secondary" href="{% url 'all_reviews' product_id=review.product.pk %}">Back to Reviews</a>
+		<a class="btn btn-secondary" href="{% url 'view_product' pk=review.product.pk %}">Back to Product Page</a>
 	</div>
 {% endblock %}
