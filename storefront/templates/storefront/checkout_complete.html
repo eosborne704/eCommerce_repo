@@ -1,15 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Checkout Complete</title>
-    <link rel="stylesheet" href="/static/storefront/style.css">
-</head>
-<body>
-    <div class="container mt-4">
-        <h2>Checkout complete!</h2>
-        <a class="btn btn-primary" href="{% url 'all_stores' %}">Continue Shopping</a>
-        <a class="btn btn-danger ml-2" href="/logout/">Logout</a>
+{% extends "base.html" %}
+
+{% block nav %}{% endblock %}
+
+{% block user_info %}{% endblock %}
+
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 70vh;">
+    <div class="card shadow p-4" style="max-width: 400px; width: 100%;">
+        <h2 class="text-center mb-4">Checkout complete!</h2>
+        <div class="d-flex flex-column gap-2">
+            <a class="btn btn-primary mb-2" href="{% url 'all_stores' %}">Continue Shopping</a>
+            <a class="btn btn-danger" href="/logout/">Logout</a>
+        </div>
     </div>
-</body>
-</html>
+</div>
+{% endblock %}

@@ -18,5 +18,5 @@
 			Save
 		</button>
 	</form>
-	<a href="{% url 'all_reviews' product_id=form.instance.product.pk %}">Back to Reviews</a>
+	<a class="btn btn-secondary mt-2" href="{% url 'all_reviews' product_id=form.instance.product.pk %}">Back to Reviews</a>
 {% endblock %}
